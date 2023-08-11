@@ -37,23 +37,26 @@ public class User {
 
     @Size(min=2, max=30, message="Vaše ime mora biti između 2 i 30 znakova duljine.")
     @Column(nullable = false, length = 30)
-    private String firstname;
+    private String firstName;
 
 
     @Size(min=2, max=30, message="Vaše prezime mora biti između 2 i 30 znakova duljine.")
     @Column(nullable = false, length = 30)
-    private String lastname;
+    private String lastName;
+
+    @Column(nullable = true, length = 30)
+    private String phoneNumber;
 
     public User() {}
 
-    public User(Long id, String email, String password, String firstname, String lastname) {
+    public User(Long id, String email, String password, String firstName, String lastName, String phoneNumber) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
     }
-
 
     public Long getId() {
         return id;
@@ -79,20 +82,28 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @AssertTrue(message="Lozinke se moraju podudarati.")
