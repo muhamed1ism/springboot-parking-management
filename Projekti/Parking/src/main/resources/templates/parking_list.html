@@ -15,6 +15,7 @@
                 <th>Naziv parkinga</th>
                 <th>Adresa</th>
                 <th>Broj mjesta</th>
+                <th>Prikaz</th>
                 <th>Akcija</th>
             </tr>
             </thead>
@@ -25,8 +26,17 @@
                 <td th:text="${parking.parkingAddress}"></td>
                 <td th:text="${parking.numberOfSlots}"></td>
                 <td>
-                    <a href="*">Uredi</a>
-                    <a href="*">Briši</a>
+                    <a href="*" class="btn btn-info">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-info" th:href="@{/parking_list/edit/{id}(id=${parking.id})}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger" th:href="@{/parking_list/delete/{id}(id=${parking.id})}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>

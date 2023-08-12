@@ -53,11 +53,14 @@ public class ParkingListController {
         parkingRepo.save(parking);
         return "redirect:/parking_list";
     }
-/*
+
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         ParkingList parking = parkingRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid parking Id:" + id));
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
         model.addAttribute("parking", parking);
         model.addAttribute("activeLink", "Parking Lista");
         return "edit_parking";
@@ -68,6 +71,9 @@ public class ParkingListController {
                                 BindingResult result, Model model) {
         if (result.hasErrors()) {
             parking.setId(id);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            model.addAttribute("userDetails", userDetails);
             model.addAttribute("parking", parking);
             model.addAttribute("activeLink", "Parking Lista");
             return "edit_parking";
@@ -75,12 +81,13 @@ public class ParkingListController {
         parkingRepo.save(parking);
         return "redirect:/parking_list";
     }
-    @GetMapping("/parking_list/delete/{id}")
+
+    @GetMapping("delete/{id}")
     public String delete(@PathVariable("id") long id, Model model) {
         ParkingList parking = parkingRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid parking Id:" + id));
         parkingRepo.delete(parking);
         return "redirect:/parking_list";
     }
-    */
+
 }
