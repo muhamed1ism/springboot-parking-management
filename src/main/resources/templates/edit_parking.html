@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking - Uredi parking</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex align-items-center justify-content-between">
+        <h1>Uredi parking</h1>
+    </div>
+
+    <form th:action="@{/parking_list/update/{id}(id=${parking.id})}" method="post" th:object="${parking}">
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Naziv parkinga: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('parkingName')}" type="text" th:field="*{parkingName}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('parkingName')}" type="text" th:field="*{parkingName}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('parkingName')}" th:errors="*{parkingName}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Adresa: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('parkingAddress')}" type="text" th:field="*{parkingAddress}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('parkingAddress')}" type="text" th:field="*{parkingAddress}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('parkingAddress')}" th:errors="*{parkingAddress}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Broj mjesta: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('numberOfSlots')}" type="number" th:field="*{numberOfSlots}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('numberOfSlots')}" type="number" th:field="*{numberOfSlots}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('numberOfSlots')}" th:errors="*{numberOfSlots}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Uredi parking</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
