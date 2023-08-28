@@ -3,8 +3,8 @@ package ba.sum.fsre.parking.controller;
 import ba.sum.fsre.parking.model.Parking;
 import ba.sum.fsre.parking.model.Spot;
 import ba.sum.fsre.parking.model.UserDetails;
-import ba.sum.fsre.parking.repositories.ParkingRepository;
-import ba.sum.fsre.parking.repositories.SpotRepository;
+import ba.sum.fsre.parking.services.ParkingService;
+import ba.sum.fsre.parking.services.SpotService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,10 +20,10 @@ import java.util.List;
 public class SpotController {
 
     @Autowired
-    private ParkingRepository parkingRepo;
+    private ParkingService parkingService;
 
     @Autowired
-    private SpotRepository spotRepo;
+    private SpotService spotService;
 
     @GetMapping("/{id}")
     public String listSpots(@PathVariable("id") Long parkingId, Model model) {
@@ -31,10 +31,10 @@ public class SpotController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
 
-        Parking Parking = parkingRepo.findById(parkingId).orElse(null);
+        Parking Parking = parkingService.getParkingById(parkingId);
 
         if (Parking != null) {
-            List<Spot> spots = spotRepo.findByParking(Parking);
+            List<Spot> spots = spotService.findByParking(Parking);
 
             model.addAttribute("parking", Parking);
             model.addAttribute("spots", spots);
@@ -50,17 +50,27 @@ public class SpotController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
 
-        Parking Parking = parkingRepo.findById(parkingId).orElse(null);
+        Parking Parking = parkingService.getParkingById(parkingId);
 
         if (Parking != null) {
 
+            int currentAvailableSpots = Parking.getAvailableSpots();
 
-            Spot spot = new Spot();
-            spot.setParking(Parking);
+            if (currentAvailableSpots > 0) {
+                Parking.setAvailableSpots(currentAvailableSpots - 1);
 
-            model.addAttribute("spot", spot);
+                Spot spot = new Spot();
+                spot.setParking(Parking);
 
-            return "add-spot";
+                model.addAttribute("spot", spot);
+
+                return "add-spot";
+            } else {
+                // Handle the case where no available spots are left
+                // You can redirect to an error page or display an error message
+                return "error-page"; // Create an error page in your templates
+            }
+
         } else {
             return "redirect:/parking-list";
         }
@@ -72,22 +82,48 @@ public class SpotController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
 
-        Parking Parking = parkingRepo.findById(parkingId).orElse(null);
+        Parking Parking = parkingService.getParkingById(parkingId);
 
         if (Parking != null) {
-            spot.setParking(Parking);
-            spotRepo.save(spot);
+            int currentAvailableSpots = Parking.getAvailableSpots();
 
-            return "redirect:/spots/" + parkingId;
+            if (currentAvailableSpots > 0) {
+                Parking.setAvailableSpots(currentAvailableSpots - 1);
+
+                spot.setParking(Parking);
+                spotService.saveSpot(spot);
+
+                return "redirect:/spots/" + parkingId;
+            } else {
+                // Handle the case where no available spots are left
+                // You can redirect to an error page or display an error message
+                return "error-page"; // Create an error page in your templates
+            }
         } else {
             return "redirect:/parking-list";
         }
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteSpot(@PathVariable("id") Long spotId, HttpServletRequest request) {
+    public String deleteSpot(@PathVariable("id") Long spotId, HttpServletRequest request, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
 
-        spotRepo.deleteById(spotId);
+        Spot spotToDelete = spotService.getSpotById(spotId).orElse(null);
+
+        spotService.deleteSpot(spotId);
+
+        if (spotToDelete != null) {
+            Parking parking = spotToDelete.getParking();
+
+            if (parking != null) {
+                int currentAvailableSpots = parking.getAvailableSpots();
+                parking.setAvailableSpots(currentAvailableSpots + 1);
+
+                parkingService.saveParking(parking);
+            }
+        }
 
         // Redirect to the previous page or a specific URL
         String referer = request.getHeader("referer");

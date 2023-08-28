@@ -10,10 +10,10 @@ public class Spot {
     Long id;
 
     @Column(nullable = false, length = 50)
-    String spotName;
+    String carName;
 
-    @Column(columnDefinition = "boolean default true")
-    Boolean isAvailable;
+    @Column(nullable = false, length = 30)
+    String licensePlate;
 
     @ManyToOne
     @JoinColumn(name = "parking_id")
@@ -25,8 +25,8 @@ public class Spot {
 
     public Spot(Long id, String spotName, Boolean isAvailable, Parking parking) {
         this.id = id;
-        this.spotName = spotName;
-        this.isAvailable = isAvailable;
+        this.carName = spotName;
+        this.licensePlate = licensePlate;
         this.parking = parking;
     }
 
@@ -38,20 +38,20 @@ public class Spot {
         this.id = id;
     }
 
-    public String getSpotName() {
-        return spotName;
+    public String getCarName() {
+        return carName;
     }
 
-    public void setSpotName(String spotName) {
-        this.spotName = spotName;
+    public void setCarName(String carName) {
+        this.carName = carName;
     }
 
-    public Boolean getAvailable() {
-        return isAvailable;
+    public String getLicensePlate() {
+        return licensePlate;
     }
 
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public Parking getParking() {

@@ -93,7 +93,11 @@ public class ParkingController {
     }
 
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable("id") long parkingId) {
+    public String delete(@PathVariable("id") long parkingId, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+
         Parking parking = parkingService.getParkingById(parkingId);
         parkingService.deleteParking(parking.getId());
         return "redirect:/parking-list";

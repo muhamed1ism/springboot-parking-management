@@ -1,5 +1,6 @@
 package ba.sum.fsre.parking.services;
 
+import ba.sum.fsre.parking.model.Parking;
 import ba.sum.fsre.parking.model.Spot;
 import ba.sum.fsre.parking.repositories.SpotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,11 @@ public class SpotService {
     public void deleteSpot(Long id) {
         spotRepository.deleteById(id);
     }
+
+    public List<Spot> findByParking(Parking parking) {
+        return spotRepository.findByParking(parking);
+    }
+
+
 
 }

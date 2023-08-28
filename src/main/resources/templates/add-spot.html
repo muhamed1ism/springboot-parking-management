@@ -14,8 +14,12 @@
     <form th:action="@{/spots/add/{id}(id=${spot.Parking.id})}" method="post">
         <input type="hidden" name="Parking.id" th:value="${spot.Parking.id}"/>
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="spotName">Naziv mjesta: </label>
-            <input type="text" class="form-control" id="spotName" name="spotName" />
+            <label class="col-4 col-form-label" for="carName">Naziv vozila: </label>
+            <input type="text" class="form-control" id="carName" name="carName" />
+        </div>
+        <div class="form-group row">
+            <label class="col-4 col-form-label" for="licensePlate">Registracijski broj vozila: </label>
+            <input type="text" class="form-control" id="licensePlate" name="licensePlate" />
         </div>
         <button type="submit" class="btn btn-primary">Rezerviraj mjesto</button>
     </form>
