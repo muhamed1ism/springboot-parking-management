@@ -19,14 +19,14 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegistrationForm (Model model) {
         model.addAttribute("user", new User());
-        return "register_form";
+        return "register-form";
     }
 
     @PostMapping("/register_user")
     public String registerUser (@Valid User user, BindingResult result, Model model) {
         boolean errors = result.hasErrors();
         if (errors) {
-            return "register_form";
+            return "register-form";
         }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
@@ -39,6 +39,6 @@ public class AuthController {
     @GetMapping("/login")
     public String showLoginForm(Model model){
         model.addAttribute("user", new User());
-        return "login_form";
+        return "login-form";
     }
 }

@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="parking_list")
-public class ParkingList {
+public class Parking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -21,17 +24,25 @@ public class ParkingList {
 
     @Column(nullable = false, length = 5)
     @NotNull(message = "Molimo unesite broj parking mjesta.")
-    Integer numberOfSlots;
+    Integer totalSpots;
 
-    public ParkingList() {
+    @Column
+    Integer availableSpots;
+
+    @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL)
+    private List<Spot> spots = new ArrayList<>();
+
+    public Parking() {
 
     }
 
-    public ParkingList(Long id, String parkingName, String parkingAddress, Integer numberOfSlots) {
+    public Parking(Long id, String parkingName, String parkingAddress, Integer totalSpots, Integer availableSpots, List<Spot> spots) {
         this.id = id;
         this.parkingName = parkingName;
         this.parkingAddress = parkingAddress;
-        this.numberOfSlots = numberOfSlots;
+        this.totalSpots = totalSpots;
+        this.availableSpots = availableSpots;
+        this.spots = spots;
     }
 
     public Long getId() {
@@ -58,11 +69,27 @@ public class ParkingList {
         this.parkingAddress = parkingAddress;
     }
 
-    public Integer getNumberOfSlots() {
-        return numberOfSlots;
+    public Integer getTotalSpots() {
+        return totalSpots;
     }
 
-    public void setNumberOfSlots(Integer numberOfSlots) {
-        this.numberOfSlots = numberOfSlots;
+    public void setTotalSpots(Integer totalSpots) {
+        this.totalSpots = totalSpots;
+    }
+
+    public Integer getAvailableSpots() {
+        return availableSpots;
+    }
+
+    public void setAvailableSpots(Integer availableSpots) {
+        this.availableSpots = availableSpots;
+    }
+
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
     }
 }

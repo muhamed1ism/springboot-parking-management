@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking - Rezerviraj mjesto</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div >
+        <h1>Rezerviraj mjesto</h1>
+    </div>
+
+    <form th:action="@{/spots/add/{id}(id=${spot.Parking.id})}" method="post">
+        <input type="hidden" name="Parking.id" th:value="${spot.Parking.id}"/>
+        <div class="form-group row">
+            <label class="col-4 col-form-label" for="spotName">Naziv mjesta: </label>
+            <input type="text" class="form-control" id="spotName" name="spotName" />
+        </div>
+        <button type="submit" class="btn btn-primary">Rezerviraj mjesto</button>
+    </form>
+
+
+</div>
+</body>
+</html>

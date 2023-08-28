@@ -11,7 +11,7 @@
         <h1>Dodaj parking</h1>
     </div>
 
-    <form th:action="@{/parking_list/add}" method="post" th:object="${parkingList}">
+    <form th:action="@{/parking-list/add}" method="post" th:object="${parkingList}">
         <div class="form-group row">
             <label class="col-4 col-form-label">Naziv parkinga: </label>
             <div class="col-8">
@@ -35,10 +35,10 @@
         <div class="form-group row">
             <label class="col-4 col-form-label">Broj mjesta: </label>
             <div class="col-8">
-                <input th:unless="${#fields.hasErrors('numberOfSlots')}" type="number" th:field="*{numberOfSlots}" class="form-control"/>
-                <input th:if="${#fields.hasErrors('numberOfSlots')}" type="number" th:field="*{numberOfSlots}"
+                <input th:unless="${#fields.hasErrors('totalSpots')}" type="number" th:field="*{totalSpots}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('totalSpots')}" type="number" th:field="*{totalSpots}"
                        class="form-control  is-invalid"/>
-                <div th:if="${#fields.hasErrors('numberOfSlots')}" th:errors="*{numberOfSlots}" class="invalid-feedback"></div>
+                <div th:if="${#fields.hasErrors('totalSpots')}" th:errors="*{totalSpots}" class="invalid-feedback"></div>
             </div>
         </div>
 
