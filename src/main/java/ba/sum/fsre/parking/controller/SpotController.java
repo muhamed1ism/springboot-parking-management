@@ -6,13 +6,16 @@ import ba.sum.fsre.parking.model.UserDetails;
 import ba.sum.fsre.parking.services.ParkingService;
 import ba.sum.fsre.parking.services.SpotService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -38,10 +41,10 @@ public class SpotController {
 
             model.addAttribute("parking", Parking);
             model.addAttribute("spots", spots);
-            return "spots"; // Return the name of your Thymeleaf template
+            return "spots";
         } else {
-            // Handle the case where the parking with the given ID does not exist
-            return "error-page"; // Create an error page in your templates
+
+            return "error-page";
         }
     }
     @GetMapping("/add/{id}")
@@ -66,9 +69,8 @@ public class SpotController {
 
                 return "add-spot";
             } else {
-                // Handle the case where no available spots are left
-                // You can redirect to an error page or display an error message
-                return "error-page"; // Create an error page in your templates
+
+                return "error-page";
             }
 
         } else {
@@ -77,7 +79,7 @@ public class SpotController {
     }
 
     @PostMapping("/add/{id}")
-    public String addSpot(@PathVariable("id") Long parkingId,Model model, @ModelAttribute("spot") Spot spot) {
+    public String addSpot(@PathVariable("id") Long parkingId, @ModelAttribute("spot") @Valid Spot spot, BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
@@ -88,6 +90,24 @@ public class SpotController {
             int currentAvailableSpots = Parking.getAvailableSpots();
 
             if (currentAvailableSpots > 0) {
+
+                // Provjera da li su sva polja ispravno popunjena
+                if (result.hasErrors()) {
+                    model.addAttribute("spot", spot);
+                    return "add-spot";
+                }
+
+                if (spot.getEndTime().isBefore(spot.getStartTime()) && spot.getStartTime().isBefore(LocalDateTime.now())) {
+                    model.addAttribute("error", "Početno i krajnje vrijeme ne mogu biti prije trenutnog vremena.");
+                    return "add-spot";
+                } else if (spot.getEndTime().isBefore(spot.getStartTime())) {
+                    model.addAttribute("error", "Krajnje vrijeme ne može biti prije početnog vremena.");
+                    return "add-spot";
+                } else if (spot.getStartTime().isBefore(LocalDateTime.now())) {
+                    model.addAttribute("error", "Početno vrijeme ne može biti prije trenutnog vremena.");
+                    return "add-spot";
+                }
+
                 Parking.setAvailableSpots(currentAvailableSpots - 1);
 
                 spot.setParking(Parking);
@@ -95,9 +115,8 @@ public class SpotController {
 
                 return "redirect:/spots/" + parkingId;
             } else {
-                // Handle the case where no available spots are left
-                // You can redirect to an error page or display an error message
-                return "error-page"; // Create an error page in your templates
+
+                return "error-page";
             }
         } else {
             return "redirect:/parking-list";
@@ -125,9 +144,7 @@ public class SpotController {
             }
         }
 
-        // Redirect to the previous page or a specific URL
         String referer = request.getHeader("referer");
-
         return "redirect:" + referer;
     }
 

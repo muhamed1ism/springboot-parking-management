@@ -13,6 +13,8 @@
             <th>ID</th>
             <th>Naziv vozila</th>
             <th>Registracijski broj vozila</th>
+            <th>Početno vrijeme</th>
+            <th>Završno vrijeme</th>
             <th>Akcija</th>
         </tr>
         </thead>
@@ -21,6 +23,8 @@
             <td th:text="${spot.id}"></td>
             <td th:text="${spot.carName}"></td>
             <td th:text="${spot.licensePlate}"></td>
+            <td th:text="${spot.startTime}"></td>
+            <td th:text="${spot.endTime}"></td>
             <td>
                 <form th:action="@{/spots/delete/{id}(id=${spot.id})}" method="post">
                     <button type="submit" class="btn btn-danger">Delete Spot</button>

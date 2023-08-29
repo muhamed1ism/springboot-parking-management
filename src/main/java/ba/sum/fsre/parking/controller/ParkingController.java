@@ -39,22 +39,21 @@ public class ParkingController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
 
-        model.addAttribute("parkingList", new Parking());
+        model.addAttribute("parking", new Parking());
         model.addAttribute("activeLink", "Parking Lista");
         return "add-parking";
     }
 
     @PostMapping("add")
     public String addParking(@Valid Parking parking, BindingResult result, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("activeLink", "Parking Lista");
         if (result.hasErrors()) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            model.addAttribute("userDetails", userDetails);
-
-            model.addAttribute("parking", parking);
-            model.addAttribute("activeLink", "Parking Lista");
             return "add-parking";
         }
+
         parking.setAvailableSpots(parking.getTotalSpots());
         parkingService.saveParking(parking);
         return "redirect:/parking-list";
@@ -75,14 +74,11 @@ public class ParkingController {
     @PostMapping("update/{id}")
     public String updateParking(@PathVariable("id") long parkingId, @Valid Parking parking,
                                 BindingResult result, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("activeLink", "Parking Lista");
         if (result.hasErrors()) {
-            parking.setId(parkingId);
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            model.addAttribute("userDetails", userDetails);
-
-            model.addAttribute("parking", parking);
-            model.addAttribute("activeLink", "Parking Lista");
             return "edit-parking";
         }
         Parking existingParking = parkingService.getParkingById(parkingId);
