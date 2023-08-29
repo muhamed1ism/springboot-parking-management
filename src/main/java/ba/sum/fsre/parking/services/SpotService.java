@@ -31,6 +31,10 @@ public class SpotService {
         return spotRepository.findById(id);
     }
 
+    public Spot getSpotByLicensePlate(String licensePlate) {
+        return spotRepository.findByLicensePlate(licensePlate);
+    }
+
     public void deleteSpot(Long id) {
         spotRepository.deleteById(id);
     }

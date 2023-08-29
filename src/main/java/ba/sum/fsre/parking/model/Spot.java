@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -19,18 +20,25 @@ public class Spot {
     @Size(max=30, message = "Naziv parking mjesta ne može biti duži od 30 karaktera.")
     String carName;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 15, unique = true)
     @NotBlank(message = "Molimo unesite registarsku oznaku vozila.")
     @Size(max=15, message = "Registracijska oznaka ne može biti duža od 15 karaktera.")
     String licensePlate;
 
-    @Column(nullable = false)
-    @NotNull(message = "Molimo unesite početno vrijeme.")
+    @Column
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     LocalDateTime startTime;
 
-    @Column(nullable = false)
-    @NotNull(message = "Molimo unesite krajnje vrijeme.")
+    @Column
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     LocalDateTime endTime;
+
+    @Column
+    @NotNull(message = "Molimo unesite trajanje.")
+    Long duration;
+
+    @Column
+    String durationUnit;
 
     @ManyToOne
     @JoinColumn(name = "parking_id")
@@ -40,13 +48,15 @@ public class Spot {
 
     }
 
-    public Spot(Long id, String spotName, Boolean isAvailable, Parking parking, LocalDateTime startTime, LocalDateTime endTime) {
+    public Spot(Long id, String carName, String licensePlate, LocalDateTime startTime, LocalDateTime endTime, Long duration, String durationUnit, Parking parking) {
         this.id = id;
-        this.carName = spotName;
+        this.carName = carName;
         this.licensePlate = licensePlate;
-        this.parking = parking;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.duration = duration;
+        this.durationUnit = durationUnit;
+        this.parking = parking;
     }
 
     public Long getId() {
@@ -95,5 +105,21 @@ public class Spot {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
+
+    public String getDurationUnit() {
+        return durationUnit;
+    }
+
+    public void setDurationUnit(String durationUnit) {
+        this.durationUnit = durationUnit;
     }
 }

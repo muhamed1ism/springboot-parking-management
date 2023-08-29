@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface SpotRepository extends JpaRepository<Spot, Long> {
     List<Spot> findByParking(Parking parking);
+
+    Spot findByLicensePlate(String licensePlate);
 }

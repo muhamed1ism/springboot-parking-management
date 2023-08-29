@@ -90,23 +90,37 @@ public class SpotController {
             int currentAvailableSpots = Parking.getAvailableSpots();
 
             if (currentAvailableSpots > 0) {
-
                 // Provjera da li su sva polja ispravno popunjena
                 if (result.hasErrors()) {
                     model.addAttribute("spot", spot);
                     return "add-spot";
                 }
 
-                if (spot.getEndTime().isBefore(spot.getStartTime()) && spot.getStartTime().isBefore(LocalDateTime.now())) {
-                    model.addAttribute("error", "Početno i krajnje vrijeme ne mogu biti prije trenutnog vremena.");
-                    return "add-spot";
-                } else if (spot.getEndTime().isBefore(spot.getStartTime())) {
-                    model.addAttribute("error", "Krajnje vrijeme ne može biti prije početnog vremena.");
-                    return "add-spot";
-                } else if (spot.getStartTime().isBefore(LocalDateTime.now())) {
-                    model.addAttribute("error", "Početno vrijeme ne može biti prije trenutnog vremena.");
-                    return "add-spot";
+                LocalDateTime startTime = LocalDateTime.now();
+                spot.setStartTime(startTime);
+
+                // Postavljanje kranjeg vremena na osnovu trajanja i jedinice trajanja
+                switch (spot.getDurationUnit()) {
+                    case "HOURS" -> spot.setEndTime(spot.getStartTime().plusHours(spot.getDuration()));
+                    case "DAYS" -> spot.setEndTime(spot.getStartTime().plusDays(spot.getDuration()));
+                    case "MONTHS" -> spot.setEndTime(spot.getStartTime().plusMonths(spot.getDuration()));
+                    default -> { return "error-page";
+                    }
                 }
+
+                String licensePlate = spot.getLicensePlate();
+
+                // Provjera da li postoji vozilo sa istom registracijom
+                if (spotService.getSpotByLicensePlate(licensePlate) != null) {
+                    result.rejectValue("licensePlate", "error.spot",
+                            "Vozilo sa istom registracijom već postoji!");
+
+                    if (result.hasErrors()) {
+                        model.addAttribute("spot", spot);
+                        return "add-spot";
+                    }
+                }
+
 
                 Parking.setAvailableSpots(currentAvailableSpots - 1);
 

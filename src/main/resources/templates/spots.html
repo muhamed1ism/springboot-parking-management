@@ -23,8 +23,8 @@
             <td th:text="${spot.id}"></td>
             <td th:text="${spot.carName}"></td>
             <td th:text="${spot.licensePlate}"></td>
-            <td th:text="${spot.startTime}"></td>
-            <td th:text="${spot.endTime}"></td>
+            <td th:text="${#temporals.format(spot.startTime, 'dd.MM.yyyy. HH:mm')}"></td>
+            <td th:text="${#temporals.format(spot.endTime, 'dd.MM.yyyy. HH:mm')}"></td>
             <td>
                 <form th:action="@{/spots/delete/{id}(id=${spot.id})}" method="post">
                     <button type="submit" class="btn btn-danger">Delete Spot</button>

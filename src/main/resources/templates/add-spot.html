@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Parking - Rezerviraj mjesto</title>
+
+
 </head>
 <body>
 <div layout:fragment="content">
@@ -23,16 +25,20 @@
             <input type="text" class="form-control" id="licensePlate" name="licensePlate" />
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}"></p>
         </div>
+
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="startTime">Početno vrijeme: </label>
-            <input type="datetime-local" class="form-control" id="startTime" name="startTime" />
-            <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('startTime')}" th:errors="*{startTime}"></p>
+            <label class="col-4 col-form-label" for="duration">Trajanje: </label>
+            <input type="number" class="form-control" id="duration" name="duration" />
+            <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="endTime">Završno vrijeme: </label>
-            <input type="datetime-local" class="form-control" id="endTime" name="endTime" />
-            <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('endTime')}" th:errors="*{endTime}"></p>
+            <label class="col-4 col-form-label" for="durationUnit">Jedinica trajanja: </label>
+            <select class="form-control" id="durationUnit" name="durationUnit">
+                <option value="HOURS">Sati</option>
+                <option value="DAYS">Dani</option>
+                <option value="MONTHS">Mjeseci</option>
+            </select>
         </div>
 
         <div th:if="${error}" class="alert alert-danger">
