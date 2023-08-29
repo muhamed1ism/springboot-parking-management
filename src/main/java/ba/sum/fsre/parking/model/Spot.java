@@ -1,11 +1,13 @@
 package ba.sum.fsre.parking.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,10 +37,14 @@ public class Spot {
 
     @Column
     @NotNull(message = "Molimo unesite trajanje.")
+    @Min(value = 1, message = "Vrijeme trajanja mora biti 1 ili više.")
     Long duration;
 
     @Column
     String durationUnit;
+
+    @Column
+    BigDecimal finalPrice;
 
     @ManyToOne
     @JoinColumn(name = "parking_id")
@@ -48,7 +54,7 @@ public class Spot {
 
     }
 
-    public Spot(Long id, String carName, String licensePlate, LocalDateTime startTime, LocalDateTime endTime, Long duration, String durationUnit, Parking parking) {
+    public Spot(Long id, String carName, String licensePlate, LocalDateTime startTime, LocalDateTime endTime, Long duration, String durationUnit, BigDecimal finalPrice, Parking parking) {
         this.id = id;
         this.carName = carName;
         this.licensePlate = licensePlate;
@@ -56,6 +62,7 @@ public class Spot {
         this.endTime = endTime;
         this.duration = duration;
         this.durationUnit = durationUnit;
+        this.finalPrice = finalPrice;
         this.parking = parking;
     }
 
@@ -121,5 +128,13 @@ public class Spot {
 
     public void setDurationUnit(String durationUnit) {
         this.durationUnit = durationUnit;
+    }
+
+    public BigDecimal getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(BigDecimal finalPrice) {
+        this.finalPrice = finalPrice;
     }
 }

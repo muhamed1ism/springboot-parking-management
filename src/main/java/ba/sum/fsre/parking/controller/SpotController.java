@@ -1,6 +1,7 @@
 package ba.sum.fsre.parking.controller;
 
 import ba.sum.fsre.parking.model.Parking;
+import ba.sum.fsre.parking.model.Price;
 import ba.sum.fsre.parking.model.Spot;
 import ba.sum.fsre.parking.model.UserDetails;
 import ba.sum.fsre.parking.services.ParkingService;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class SpotController {
 
     @Autowired
     private SpotService spotService;
+
+
 
     @GetMapping("/{id}")
     public String listSpots(@PathVariable("id") Long parkingId, Model model) {
@@ -101,9 +105,31 @@ public class SpotController {
 
                 // Postavljanje kranjeg vremena na osnovu trajanja i jedinice trajanja
                 switch (spot.getDurationUnit()) {
-                    case "HOURS" -> spot.setEndTime(spot.getStartTime().plusHours(spot.getDuration()));
-                    case "DAYS" -> spot.setEndTime(spot.getStartTime().plusDays(spot.getDuration()));
-                    case "MONTHS" -> spot.setEndTime(spot.getStartTime().plusMonths(spot.getDuration()));
+                    case "HOURS" -> {
+                        spot.setEndTime(spot.getStartTime().plusHours(spot.getDuration()));
+                        if (spot.getDuration() > 1) {
+                            BigDecimal duration = BigDecimal.valueOf(spot.getDuration());
+                            BigDecimal pricePerHour = Price.getPricePerHour();
+                            BigDecimal priceForHour = Price.getPriceForHour();
+                            duration = duration.subtract(BigDecimal.valueOf(1));
+                            spot.setFinalPrice(priceForHour.add(duration.multiply(pricePerHour)));
+                        } else {
+                            BigDecimal priceForHour = Price.getPriceForHour();
+                            spot.setFinalPrice(priceForHour);
+                        }
+                    }
+                    case "DAYS" -> {
+                        spot.setEndTime(spot.getStartTime().plusDays(spot.getDuration()));
+                        BigDecimal duration = BigDecimal.valueOf(spot.getDuration());
+                        BigDecimal pricePerDay = Price.getPricePerDay();
+                        spot.setFinalPrice(duration.multiply(pricePerDay));
+                    }
+                    case "MONTHS" -> {
+                        spot.setEndTime(spot.getStartTime().plusMonths(spot.getDuration()));
+                        BigDecimal duration = BigDecimal.valueOf(spot.getDuration());
+                        BigDecimal pricePerMonth = Price.getPricePerMonth();
+                        spot.setFinalPrice(duration.multiply(pricePerMonth));
+                    }
                     default -> { return "error-page";
                     }
                 }

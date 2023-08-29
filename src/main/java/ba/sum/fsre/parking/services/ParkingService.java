@@ -9,27 +9,27 @@ import java.util.List;
 
 @Service
 public class ParkingService {
-    private final ParkingRepository ParkingRepository;
+    private final ParkingRepository parkingRepository;
 
     @Autowired
-    public ParkingService(ParkingRepository ParkingRepository) {
-        this.ParkingRepository = ParkingRepository;
+    public ParkingService(ParkingRepository parkingRepository) {
+        this.parkingRepository = parkingRepository;
     }
 
     public List<Parking> getAllParkings() {
-        return ParkingRepository.findAll();
+        return parkingRepository.findAll();
     }
 
     public Parking saveParking(Parking parking) {
-        return ParkingRepository.save(parking);
+        return parkingRepository.save(parking);
     }
 
     public Parking getParkingById(Long id) {
-        return ParkingRepository.findById(id)
+        return parkingRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid parking Id:" + id));
     }
 
     public void deleteParking(Long id) {
-        ParkingRepository.deleteById(id);
+        parkingRepository.deleteById(id);
     }
 }

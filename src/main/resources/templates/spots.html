@@ -6,7 +6,7 @@
 <body>
 <div layout:fragment="content">
     <h1>Parking Mjesta</h1>
-    <a th:href="@{/spots/add/{id}(id=${parking.id})}" class="btn btn-outline-primary mb-3"><i class="fa-solid fa-plus"></i> Dodaj Mjesto</a>
+    <a th:href="@{/spots/add/{id}(id=${parking.id})}" class="btn btn-outline-primary mb-3"><i class="fa-solid fa-plus"></i> Kupi kartu</a>
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
         <tr>
@@ -15,6 +15,7 @@
             <th>Registracijski broj vozila</th>
             <th>Početno vrijeme</th>
             <th>Završno vrijeme</th>
+            <th>Cijena</th>
             <th>Akcija</th>
         </tr>
         </thead>
@@ -25,9 +26,10 @@
             <td th:text="${spot.licensePlate}"></td>
             <td th:text="${#temporals.format(spot.startTime, 'dd.MM.yyyy. HH:mm')}"></td>
             <td th:text="${#temporals.format(spot.endTime, 'dd.MM.yyyy. HH:mm')}"></td>
+            <td th:text="${spot.finalPrice} + ' KM'"></td>
             <td>
                 <form th:action="@{/spots/delete/{id}(id=${spot.id})}" method="post">
-                    <button type="submit" class="btn btn-danger">Delete Spot</button>
+                    <button type="submit" class="btn btn-danger"> Ukini rezervaciju</button>
                 </form>
             </td>
         </tr>

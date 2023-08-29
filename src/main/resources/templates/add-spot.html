@@ -3,14 +3,14 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Parking - Rezerviraj mjesto</title>
+    <title>Parking - Kupi kartu</title>
 
 
 </head>
 <body>
 <div layout:fragment="content">
     <div >
-        <h1>Rezerviraj mjesto</h1>
+        <h1> Kupi kartu</h1>
     </div>
 
     <form th:action="@{/spots/add/{id}(id=${spot.Parking.id})}" method="post" th:object="${spot}">
@@ -44,7 +44,7 @@
         <div th:if="${error}" class="alert alert-danger">
             <p th:text="${error}"></p>
         </div>
-        <button type="submit" class="btn btn-primary">Rezerviraj mjesto</button>
+        <button type="submit" class="btn btn-primary"> Kupi kartu</button>
     </form>
 
 
