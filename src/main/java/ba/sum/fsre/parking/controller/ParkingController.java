@@ -53,8 +53,8 @@ public class ParkingController {
         if (result.hasErrors()) {
             return "add-parking";
         }
-
         parking.setAvailableSpots(parking.getTotalSpots());
+
         parkingService.saveParking(parking);
         return "redirect:/parking-list";
     }
@@ -82,8 +82,8 @@ public class ParkingController {
             return "edit-parking";
         }
         Parking existingParking = parkingService.getParkingById(parkingId);
-
         parking.setAvailableSpots(existingParking.getAvailableSpots());
+
         parkingService.saveParking(parking);
         return "redirect:/parking-list";
     }

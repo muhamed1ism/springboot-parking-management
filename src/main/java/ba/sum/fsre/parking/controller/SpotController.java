@@ -73,8 +73,7 @@ public class SpotController {
 
                 return "add-spot";
             } else {
-
-                return "error-page";
+                return "redirect:/spots/{id}?errorMessage=Nema slobodnih mjesta!";
             }
 
         } else {
