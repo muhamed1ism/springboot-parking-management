@@ -1,10 +1,8 @@
 package ba.sum.fsre.parking.controller;
 
-import ba.sum.fsre.parking.model.Parking;
-import ba.sum.fsre.parking.model.Price;
-import ba.sum.fsre.parking.model.Spot;
-import ba.sum.fsre.parking.model.UserDetails;
+import ba.sum.fsre.parking.model.*;
 import ba.sum.fsre.parking.services.ParkingService;
+import ba.sum.fsre.parking.services.SpotHistoryService;
 import ba.sum.fsre.parking.services.SpotService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,6 +28,8 @@ public class SpotController {
     @Autowired
     private SpotService spotService;
 
+    @Autowired
+    private SpotHistoryService spotHistoryService;
 
 
     @GetMapping("/{id}")
@@ -170,9 +170,11 @@ public class SpotController {
 
         Spot spotToDelete = spotService.getSpotById(spotId).orElse(null);
 
-        spotService.deleteSpot(spotId);
-
+        // save spot to history
         if (spotToDelete != null) {
+            SpotHistory spotHistory = new SpotHistory();
+            spotHistoryService.saveSpot(spotHistory, spotToDelete);
+
             Parking parking = spotToDelete.getParking();
 
             if (parking != null) {
@@ -182,6 +184,8 @@ public class SpotController {
                 parkingService.saveParking(parking);
             }
         }
+
+        spotService.deleteSpot(spotId);
 
         String referer = request.getHeader("referer");
         return "redirect:" + referer;

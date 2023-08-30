@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Service
 public class SpotService {
-
     private final SpotRepository spotRepository;
 
     @Autowired
