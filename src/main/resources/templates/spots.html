@@ -19,7 +19,7 @@
             <th>Početno vrijeme</th>
             <th>Završno vrijeme</th>
             <th>Cijena</th>
-            <th>Akcija</th>
+            <th class="text-center">Akcija</th>
         </tr>
         </thead>
         <tbody>
@@ -31,9 +31,11 @@
             <td th:text="${#temporals.format(spot.endTime, 'dd.MM.yyyy. HH:mm')}"></td>
             <td th:text="${spot.finalPrice} + ' KM'"></td>
             <td>
-                <form th:action="@{/spots/delete/{id}(id=${spot.id})}" method="post">
-                    <button type="submit" class="btn btn-danger"> Ukini rezervaciju</button>
-                </form>
+                <div class="d-flex justify-content-center">
+                    <form th:action="@{/spots/delete/{id}(id=${spot.id})}" method="post">
+                        <button type="submit" class="btn btn-danger m-1"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>

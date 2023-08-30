@@ -17,6 +17,7 @@
             <th>Početno vrijeme</th>
             <th>Završno vrijeme</th>
             <th>Cijena</th>
+            <th class="text-center">Akcija</th>
         </tr>
         </thead>
         <tbody>
@@ -29,7 +30,16 @@
             <td th:text="${#temporals.format(spot.startTime, 'dd.MM.yyyy. HH:mm')}"></td>
             <td th:text="${#temporals.format(spot.endTime, 'dd.MM.yyyy. HH:mm')}"></td>
             <td th:text="${spot.finalPrice} + ' KM'"></td>
-
+            <td>
+                <div class="d-flex justify-content-center">
+                    <form th:action="@{/spot-history/restore/{id}(id=${spot.id})}" method="post">
+                        <button type="submit" class="btn btn-success m-1"><i class="fas fa-solid fa-undo"></i></button>
+                    </form>
+                    <form th:action="@{/spot-history/delete/{id}(id=${spot.id})}" method="post">
+                        <button type="submit" class="btn btn-danger m-1"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
