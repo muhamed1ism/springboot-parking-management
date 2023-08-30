@@ -19,7 +19,8 @@ public class User {
     private String password;
     @NotBlank(message="Molimo ponovite Vašu lozinku.")
     private String passwordRepeat;
-
+    @Enumerated(EnumType.STRING)
+    private Role role;
     private boolean passwordsEqual;
 
     public void setPasswordsEqual(boolean passwordsEqual) {
@@ -104,6 +105,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @AssertTrue(message="Lozinke se moraju podudarati.")

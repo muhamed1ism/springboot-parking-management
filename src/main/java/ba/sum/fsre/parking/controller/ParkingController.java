@@ -5,6 +5,7 @@ import ba.sum.fsre.parking.model.UserDetails;
 import ba.sum.fsre.parking.services.ParkingService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -32,18 +33,17 @@ public class ParkingController {
         return "parking-list";
     }
 
-
     @GetMapping("add")
     public String showAddParkingForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
-
         model.addAttribute("parking", new Parking());
         model.addAttribute("activeLink", "Parking Lista");
         return "add-parking";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("add")
     public String addParking(@Valid Parking parking, BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,6 +59,7 @@ public class ParkingController {
         return "redirect:/parking-list";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long parkingId, Model model) {
         Parking parking = parkingService.getParkingById(parkingId);
@@ -71,6 +72,7 @@ public class ParkingController {
         return "edit-parking";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("update/{id}")
     public String updateParking(@PathVariable("id") long parkingId, @Valid Parking parking,
                                 BindingResult result, Model model) {
@@ -88,7 +90,8 @@ public class ParkingController {
         return "redirect:/parking-list";
     }
 
-    @GetMapping("delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("delete/{id}")
     public String delete(@PathVariable("id") long parkingId, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
