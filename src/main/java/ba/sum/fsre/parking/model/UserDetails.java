@@ -1,8 +1,10 @@
 package ba.sum.fsre.parking.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
+import java.util.List;
 
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
     private User user;
@@ -13,7 +15,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(user.getRole().name()));
     }
 
     @Override

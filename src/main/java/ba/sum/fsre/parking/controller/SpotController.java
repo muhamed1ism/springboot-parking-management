@@ -7,6 +7,7 @@ import ba.sum.fsre.parking.services.SpotService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,6 @@ public class SpotController {
     @Autowired
     private SpotHistoryService spotHistoryService;
 
-
     @GetMapping("/{id}")
     public String listSpots(@PathVariable("id") Long parkingId, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -51,6 +51,7 @@ public class SpotController {
             return "error-page";
         }
     }
+
     @GetMapping("/add/{id}")
     public String showAddSpotForm(@PathVariable("id") Long parkingId, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,6 +82,7 @@ public class SpotController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add/{id}")
     public String addSpot(@PathVariable("id") Long parkingId, @ModelAttribute("spot") @Valid Spot spot, BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -162,6 +164,7 @@ public class SpotController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/delete/{id}")
     public String deleteSpot(@PathVariable("id") Long spotId, HttpServletRequest request, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
