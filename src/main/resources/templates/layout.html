@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Parking</title>
@@ -34,9 +34,12 @@
         <nav class="col-2 d-md-block sidebar collapse">
             <div class="position-sticky pt-3 sidebar-sticky">
                 <ul class="nav nav-pills flex-column">
-                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Korisnici')} ? 'nav-link active' : 'nav-link'" href="/users">Korisnici</a></li>
-                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Lista Parkinga')} ? 'nav-link active' : 'nav-link'" href="/parking-list">Parking Lista</a></li>
-                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Povjest karti')} ? 'nav-link active' : 'nav-link'" href="/spot-history">Povjest Karti</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')"  class="nav-item"><a th:class="${#strings.equals(activeLink, 'Početna')} ? 'nav-link active' : 'nav-link'" href="/dashboard">Početna</a></li>
+                    <li sec:authorize="hasRole('ROLE_USER')"  class="nav-item"><a th:class="${#strings.equals(activeLink, 'Kupi kartu')} ? 'nav-link active' : 'nav-link'" href="/select-parking">Kupi kartu</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Korisnici')} ? 'nav-link active' : 'nav-link'" href="/users">Korisnici</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Lista Parkinga')} ? 'nav-link active' : 'nav-link'" href="/parking-list">Parking Lista</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Povjest karti')} ? 'nav-link active' : 'nav-link'" href="/spot-history">Povjest Karti</a></li>
+                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Moje karte')} ? 'nav-link active' : 'nav-link'" href="/spots/user-spots">Moje karte</a></li>
                 </ul>
             </div>
         </nav>

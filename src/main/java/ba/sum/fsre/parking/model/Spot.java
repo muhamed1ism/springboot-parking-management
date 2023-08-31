@@ -50,11 +50,15 @@ public class Spot {
     @JoinColumn(name = "parking_id")
     private Parking parking;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Spot() {
 
     }
 
-    public Spot(Long id, String carName, String licensePlate, LocalDateTime startTime, LocalDateTime endTime, Long duration, String durationUnit, BigDecimal finalPrice, Parking parking) {
+    public Spot(Long id, String carName, String licensePlate, LocalDateTime startTime, LocalDateTime endTime, Long duration, String durationUnit, BigDecimal finalPrice, Parking parking, User user) {
         this.id = id;
         this.carName = carName;
         this.licensePlate = licensePlate;
@@ -64,6 +68,7 @@ public class Spot {
         this.durationUnit = durationUnit;
         this.finalPrice = finalPrice;
         this.parking = parking;
+        this.user = user;
     }
 
     public Long getId() {
@@ -88,14 +93,6 @@ public class Spot {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
-    }
-
-    public Parking getParking() {
-        return parking;
-    }
-
-    public void setParking(Parking parking) {
-        this.parking = parking;
     }
 
     public LocalDateTime getStartTime() {
@@ -136,5 +133,21 @@ public class Spot {
 
     public void setFinalPrice(BigDecimal finalPrice) {
         this.finalPrice = finalPrice;
+    }
+
+    public Parking getParking() {
+        return parking;
+    }
+
+    public void setParking(Parking parking) {
+        this.parking = parking;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

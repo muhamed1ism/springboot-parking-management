@@ -3,6 +3,9 @@ package ba.sum.fsre.parking.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="users")
 public class User {
@@ -19,6 +22,9 @@ public class User {
     private String password;
     @NotBlank(message="Molimo ponovite Vašu lozinku.")
     private String passwordRepeat;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     private boolean passwordsEqual;
 
@@ -47,15 +53,22 @@ public class User {
     @Column(nullable = true, length = 30)
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Spot> spots = new ArrayList<>();
+
     public User() {}
 
-    public User(Long id, String email, String password, String firstName, String lastName, String phoneNumber) {
+    public User(Long id, String email, String password, String passwordRepeat, Role role, boolean passwordsEqual, String firstName, String lastName, String phoneNumber, List<Spot> spots) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.passwordRepeat = passwordRepeat;
+        this.role = role;
+        this.passwordsEqual = passwordsEqual;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.spots = spots;
     }
 
     public Long getId() {
@@ -82,6 +95,14 @@ public class User {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -104,6 +125,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
     }
 
     @AssertTrue(message="Lozinke se moraju podudarati.")

@@ -32,4 +32,8 @@ public class ParkingService {
     public void deleteParking(Long id) {
         parkingRepository.deleteById(id);
     }
+
+    public boolean hasAvailableSpots(Parking parking) {
+        return parking.getAvailableSpots() > 0;
+    }
 }

@@ -24,10 +24,10 @@ public class Parking {
 
     @Column(nullable = false, length = 5)
     @NotNull(message = "Molimo unesite broj parking mjesta.")
-    Integer totalSpots;
+    Long totalSpots;
 
     @Column
-    Integer availableSpots;
+    Long availableSpots;
 
     @OneToMany(mappedBy = "parking", cascade = CascadeType.ALL)
     private List<Spot> spots = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Parking {
 
     }
 
-    public Parking(Long id, String parkingName, String parkingAddress, Integer totalSpots, Integer availableSpots, List<Spot> spots) {
+    public Parking(Long id, String parkingName, String parkingAddress, Long totalSpots, Long availableSpots, List<Spot> spots) {
         this.id = id;
         this.parkingName = parkingName;
         this.parkingAddress = parkingAddress;
@@ -69,19 +69,19 @@ public class Parking {
         this.parkingAddress = parkingAddress;
     }
 
-    public Integer getTotalSpots() {
+    public Long getTotalSpots() {
         return totalSpots;
     }
 
-    public void setTotalSpots(Integer totalSpots) {
+    public void setTotalSpots(Long totalSpots) {
         this.totalSpots = totalSpots;
     }
 
-    public Integer getAvailableSpots() {
+    public Long getAvailableSpots() {
         return availableSpots;
     }
 
-    public void setAvailableSpots(Integer availableSpots) {
+    public void setAvailableSpots(Long availableSpots) {
         this.availableSpots = availableSpots;
     }
 

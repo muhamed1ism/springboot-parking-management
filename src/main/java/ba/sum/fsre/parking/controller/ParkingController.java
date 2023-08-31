@@ -3,14 +3,16 @@ package ba.sum.fsre.parking.controller;
 import ba.sum.fsre.parking.model.Parking;
 import ba.sum.fsre.parking.model.UserDetails;
 import ba.sum.fsre.parking.services.ParkingService;
+import ba.sum.fsre.parking.services.SpotService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
@@ -20,11 +22,16 @@ public class ParkingController {
     @Autowired
     ParkingService parkingService;
 
+    @Autowired
+    SpotService spotService;
+
+    @ModelAttribute("userDetails")
+    public UserDetails getUserDetails(Authentication authentication) {
+        return (UserDetails) authentication.getPrincipal();
+    }
+
     @GetMapping
     public String listParking(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("userDetails", userDetails);
         List<Parking> listParking = parkingService.getAllParkings();
 
         model.addAttribute("listParking", listParking);
@@ -32,24 +39,17 @@ public class ParkingController {
         return "parking-list";
     }
 
-
     @GetMapping("add")
     public String showAddParkingForm(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("userDetails", userDetails);
-
         model.addAttribute("parking", new Parking());
         model.addAttribute("activeLink", "Parking Lista");
         return "add-parking";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("add")
-    public String addParking(@Valid Parking parking, BindingResult result, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("userDetails", userDetails);
-        model.addAttribute("activeLink", "Parking Lista");
+    public String addParking(@Valid Parking parking, BindingResult result,
+                             @ModelAttribute("userDetails") UserDetails userDetails) {
         if (result.hasErrors()) {
             return "add-parking";
         }
@@ -62,40 +62,28 @@ public class ParkingController {
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long parkingId, Model model) {
         Parking parking = parkingService.getParkingById(parkingId);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("userDetails", userDetails);
-
         model.addAttribute("parking", parking);
         model.addAttribute("activeLink", "Parking Lista");
         return "edit-parking";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("update/{id}")
     public String updateParking(@PathVariable("id") long parkingId, @Valid Parking parking,
-                                BindingResult result, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("userDetails", userDetails);
-        model.addAttribute("activeLink", "Parking Lista");
+                                BindingResult result, @ModelAttribute("userDetails") UserDetails userDetails) {
         if (result.hasErrors()) {
             return "edit-parking";
         }
-        Parking existingParking = parkingService.getParkingById(parkingId);
-        parking.setAvailableSpots(existingParking.getAvailableSpots());
+        parking.setAvailableSpots(parking.getTotalSpots() - spotService.countSpotByParking(parking));
 
         parkingService.saveParking(parking);
         return "redirect:/parking-list";
     }
 
-    @GetMapping("delete/{id}")
-    public String delete(@PathVariable("id") long parkingId, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        model.addAttribute("userDetails", userDetails);
-
-        Parking parking = parkingService.getParkingById(parkingId);
-        parkingService.deleteParking(parking.getId());
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("delete/{id}")
+    public String delete(@PathVariable("id") long parkingId, @ModelAttribute("userDetails") UserDetails userDetails) {
+        parkingService.deleteParking(parkingId);
         return "redirect:/parking-list";
     }
 
