@@ -24,7 +24,7 @@
                 <td th:text="${parking.id}"></td>
                 <td th:text="${parking.parkingName}"></td>
                 <td th:text="${parking.parkingAddress}"></td>
-                <td th:text="${parking.totalSpots - parking.availableSpots} + ' / ' + ${parking.totalSpots}"></td>
+                <td th:text="${parking.getTotalSpots() - parking.getAvailableSpots()} + ' / ' + ${parking.totalSpots}"></td>
                 <td>
                     <div class="d-flex justify-content-center">
                         <form th:action="@{/spots/{id}(id=${parking.id})}" method="get">
