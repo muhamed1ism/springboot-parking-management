@@ -1,5 +1,6 @@
-package ba.sum.fsre.parking.model;
+package ba.sum.fsre.parking.Model;
 
+import ba.sum.fsre.parking.Enum.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 

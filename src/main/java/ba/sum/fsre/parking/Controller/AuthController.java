@@ -1,7 +1,8 @@
-package ba.sum.fsre.parking.controller;
+package ba.sum.fsre.parking.Controller;
 
-import ba.sum.fsre.parking.model.User;
-import ba.sum.fsre.parking.repositories.UserRepository;
+import ba.sum.fsre.parking.Enum.Role;
+import ba.sum.fsre.parking.Model.User;
+import ba.sum.fsre.parking.Repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +31,11 @@ public class AuthController {
         }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
+        if (user.getEmail().equals("admin@fsre.sum.ba")) {
+            user.setRole(Role.ROLE_ADMIN);
+        } else {
+            user.setRole(Role.ROLE_USER);
+        }
         user.setPasswordRepeat(encodedPassword);
         user.setPassword(encodedPassword);
         userRepo.save(user);

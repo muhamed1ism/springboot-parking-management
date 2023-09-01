@@ -1,4 +1,4 @@
-package ba.sum.fsre.parking.model;
+package ba.sum.fsre.parking.Enum;
 
 import org.springframework.security.core.GrantedAuthority;
 

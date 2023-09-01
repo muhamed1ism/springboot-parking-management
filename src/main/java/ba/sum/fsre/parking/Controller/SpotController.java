@@ -1,9 +1,9 @@
-package ba.sum.fsre.parking.controller;
+package ba.sum.fsre.parking.Controller;
 
-import ba.sum.fsre.parking.model.*;
-import ba.sum.fsre.parking.services.ParkingService;
-import ba.sum.fsre.parking.services.SpotHistoryService;
-import ba.sum.fsre.parking.services.SpotService;
+import ba.sum.fsre.parking.Model.*;
+import ba.sum.fsre.parking.Service.ParkingService;
+import ba.sum.fsre.parking.Service.SpotHistoryService;
+import ba.sum.fsre.parking.Service.SpotService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

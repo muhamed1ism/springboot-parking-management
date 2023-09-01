@@ -1,4 +1,4 @@
-package ba.sum.fsre.parking.model;
+package ba.sum.fsre.parking.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

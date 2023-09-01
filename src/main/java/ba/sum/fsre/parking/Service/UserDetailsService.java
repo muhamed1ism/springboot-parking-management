@@ -1,9 +1,9 @@
-package ba.sum.fsre.parking.services;
+package ba.sum.fsre.parking.Service;
 
 
-import ba.sum.fsre.parking.model.User;
-import ba.sum.fsre.parking.model.UserDetails;
-import ba.sum.fsre.parking.repositories.UserRepository;
+import ba.sum.fsre.parking.Model.User;
+import ba.sum.fsre.parking.Model.UserDetails;
+import ba.sum.fsre.parking.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

@@ -1,6 +1,6 @@
-package ba.sum.fsre.parking.repositories;
+package ba.sum.fsre.parking.Repository;
 
-import ba.sum.fsre.parking.model.Parking;
+import ba.sum.fsre.parking.Model.Parking;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ParkingRepository extends

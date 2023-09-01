@@ -1,8 +1,8 @@
-package ba.sum.fsre.parking.services;
+package ba.sum.fsre.parking.Service;
 
-import ba.sum.fsre.parking.model.Spot;
-import ba.sum.fsre.parking.model.SpotHistory;
-import ba.sum.fsre.parking.repositories.SpotHistoryRepository;
+import ba.sum.fsre.parking.Model.Spot;
+import ba.sum.fsre.parking.Model.SpotHistory;
+import ba.sum.fsre.parking.Repository.SpotHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

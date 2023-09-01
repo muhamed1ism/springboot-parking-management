@@ -1,9 +1,9 @@
-package ba.sum.fsre.parking.controller;
+package ba.sum.fsre.parking.Controller;
 
-import ba.sum.fsre.parking.model.Parking;
-import ba.sum.fsre.parking.model.UserDetails;
-import ba.sum.fsre.parking.services.ParkingService;
-import ba.sum.fsre.parking.services.SpotService;
+import ba.sum.fsre.parking.Model.Parking;
+import ba.sum.fsre.parking.Model.UserDetails;
+import ba.sum.fsre.parking.Service.ParkingService;
+import ba.sum.fsre.parking.Service.SpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package ba.sum.fsre.parking.config;
+package ba.sum.fsre.parking.Config;
 
-import ba.sum.fsre.parking.services.UserDetailsService;
+import ba.sum.fsre.parking.Service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
