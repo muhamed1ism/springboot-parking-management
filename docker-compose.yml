@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  bookstore:
+  parking:
     container_name: parking
     build: .
     image: parking:latest
