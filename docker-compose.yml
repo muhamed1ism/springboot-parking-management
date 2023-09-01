@@ -21,6 +21,15 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
     restart: always
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - parking-network
 volumes:
   mysql-data:
 networks:
