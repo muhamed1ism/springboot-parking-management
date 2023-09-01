@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  resto:
+    build: src/main/java
+    container_name: parking
+    image: parking:latest
+    ports:
+      - 8080:80
+    networks:
+      - parking-network
+    volumes:
+      - java-data:/app/uploads
+    depends_on:
+      - mysql
+  mysql:
+    container_name: mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    image: mysql:latest
+    networks:
+      - parking-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=lozinka
+      - MYSQL_DATABASE=parking
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=lozinka
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+networks:
+  parking-network:
+    driver: bridge
+volumes:
+  mysql-data:
+  java-data:
