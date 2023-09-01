@@ -1,8 +1,8 @@
-package ba.sum.fsre.parking.repositories;
+package ba.sum.fsre.parking.Repository;
 
-import ba.sum.fsre.parking.model.Parking;
-import ba.sum.fsre.parking.model.Spot;
-import ba.sum.fsre.parking.model.User;
+import ba.sum.fsre.parking.Model.Parking;
+import ba.sum.fsre.parking.Model.Spot;
+import ba.sum.fsre.parking.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

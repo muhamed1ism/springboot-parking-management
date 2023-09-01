@@ -1,4 +1,4 @@
-package ba.sum.fsre.parking.model;
+package ba.sum.fsre.parking.Model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

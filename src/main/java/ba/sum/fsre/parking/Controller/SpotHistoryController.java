@@ -1,10 +1,9 @@
-package ba.sum.fsre.parking.controller;
+package ba.sum.fsre.parking.Controller;
 
-import ba.sum.fsre.parking.model.Parking;
-import ba.sum.fsre.parking.model.Spot;
-import ba.sum.fsre.parking.model.SpotHistory;
-import ba.sum.fsre.parking.services.SpotHistoryService;
-import ba.sum.fsre.parking.services.SpotService;
+import ba.sum.fsre.parking.Model.Spot;
+import ba.sum.fsre.parking.Model.SpotHistory;
+import ba.sum.fsre.parking.Service.SpotHistoryService;
+import ba.sum.fsre.parking.Service.SpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
