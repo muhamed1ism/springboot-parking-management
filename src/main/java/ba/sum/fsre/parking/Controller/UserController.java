@@ -4,6 +4,7 @@ import ba.sum.fsre.parking.Model.User;
 import ba.sum.fsre.parking.Model.UserDetails;
 import ba.sum.fsre.parking.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users")
     public String listUsers(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -30,6 +30,7 @@ public class ParkingController {
         return (UserDetails) authentication.getPrincipal();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String listParking(Model model) {
         List<Parking> listParking = parkingService.getAllParkings();
@@ -39,6 +40,8 @@ public class ParkingController {
         return "parking-list";
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("add")
     public String showAddParkingForm(Model model) {
         model.addAttribute("parking", new Parking());
@@ -59,6 +62,7 @@ public class ParkingController {
         return "redirect:/parking-list";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long parkingId, Model model) {
         Parking parking = parkingService.getParkingById(parkingId);

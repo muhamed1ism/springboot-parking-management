@@ -5,6 +5,7 @@ import ba.sum.fsre.parking.Model.SpotHistory;
 import ba.sum.fsre.parking.Service.SpotHistoryService;
 import ba.sum.fsre.parking.Service.SpotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,7 @@ public class SpotHistoryController {
     @Autowired
     private SpotService spotService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public String listSpots(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -40,6 +42,7 @@ public class SpotHistoryController {
         return "spot-history";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/restore/{id}")
     public String restoreSpot(@PathVariable("id") Long id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -58,6 +61,7 @@ public class SpotHistoryController {
         return "redirect:/spot-history";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/delete/{id}")
     public String deleteSpot(@PathVariable("id") Long id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
