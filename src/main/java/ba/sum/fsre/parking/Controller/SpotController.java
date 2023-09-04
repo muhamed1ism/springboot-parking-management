@@ -94,7 +94,7 @@ public class SpotController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+/*
     @PostMapping("/user-add/{id}")
     public String addUserSpot(@PathVariable("id") Long parkingId, @ModelAttribute("spot") @Valid Spot spot, BindingResult result, Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
         Parking Parking = parkingService.getParkingById(parkingId);
@@ -139,7 +139,7 @@ public class SpotController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+*/
     @PostMapping("/add/{id}")
     public String addSpot(@PathVariable("id") Long parkingId, @ModelAttribute("spot") @Valid Spot spot, BindingResult result, Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
         Parking Parking = parkingService.getParkingById(parkingId);
@@ -173,14 +173,14 @@ public class SpotController {
                 spot.setParking(Parking);
                 spotService.saveSpot(spot);
 
-                return "redirect:/spots/" + parkingId;
+                return "redirect:/dashboard";
 
 
             } else {
                 return "error-page";
             }
         } else {
-            return "redirect:/parking-list";
+            return "redirect:/dashboard";
         }
     }
 

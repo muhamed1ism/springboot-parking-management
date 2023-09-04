@@ -13,37 +13,8 @@
         <h1> Kupi kartu</h1>
     </div>
 
-    <form sec:authorize="hasRole('ROLE_USER')" th:action="@{/spots/user-add/{id}(id=${spot.Parking.id})}" method="post" th:object="${spot}">
-        <input type="hidden" name="Parking.id" th:value="${spot.Parking.id}"/>
-        <div class="form-group row">
-            <label class="col-4 col-form-label" for="carName">Naziv vozila: </label>
-            <input type="text" class="form-control" id="carName" name="carName" />
-            <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('carName')}" th:errors="*{carName}"></p>
-        </div>
-        <div class="form-group row">
-            <label class="col-4 col-form-label" for="licensePlate">Registracijski broj vozila: </label>
-            <input type="text" class="form-control" id="licensePlate" name="licensePlate" />
-            <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}"></p>
-        </div>
 
-        <div class="form-group row">
-            <label class="col-4 col-form-label" for="duration">Trajanje: </label>
-            <input type="number" class="form-control" id="duration" name="duration" />
-            <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
-        </div>
-
-        <div class="form-group row">
-            <label class="col-4 col-form-label" for="durationUnit">Jedinica trajanja: </label>
-            <select class="form-control" id="durationUnit" name="durationUnit">
-                <option value="HOURS">Sati</option>
-                <option value="DAYS">Dani</option>
-                <option value="MONTHS">Mjeseci</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary"> Kupi kartu</button>
-    </form>
-
-    <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/spots/add/{id}(id=${spot.Parking.id})}" method="post" th:object="${spot}">
+    <form th:action="@{/spots/add/{id}(id=${spot.Parking.id})}" method="post" th:object="${spot}">
         <input type="hidden" name="Parking.id" th:value="${spot.Parking.id}"/>
         <div class="form-group row">
             <label class="col-4 col-form-label" for="carName">Naziv vozila: </label>
