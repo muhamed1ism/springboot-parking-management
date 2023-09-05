@@ -1,7 +1,6 @@
 package ba.sum.fsre.parking.Controller;
 
 import ba.sum.fsre.parking.Model.*;
-import ba.sum.fsre.parking.Repository.UserRepository;
 import ba.sum.fsre.parking.Service.ParkingService;
 import ba.sum.fsre.parking.Service.SpotHistoryService;
 import ba.sum.fsre.parking.Service.SpotService;
@@ -31,9 +30,6 @@ public class SpotController {
 
     @Autowired
     private SpotHistoryService spotHistoryService;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @ModelAttribute("userDetails")
     public UserDetails getUserDetails(Authentication authentication) {
@@ -108,52 +104,7 @@ public class SpotController {
         }
     }
 
-/*
-    @PostMapping("/user-add/{id}")
-    public String addUserSpot(@PathVariable("id") Long parkingId, @ModelAttribute("spot") @Valid Spot spot, BindingResult result, Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
-        Parking Parking = parkingService.getParkingById(parkingId);
-        User user = userDetails.getUser();
-        if (Parking != null) {
-            long currentAvailableSpots = Parking.getAvailableSpots();
 
-            if (currentAvailableSpots > 0) {
-                if (result.hasErrors()) {
-                    model.addAttribute("spot", spot);
-                    return "add-spot";
-                }
-
-                LocalDateTime startTime = LocalDateTime.now();
-                spot.setStartTime(startTime);
-
-                spotService.calculatePriceForSpot(spot);
-
-                String licensePlate = spot.getLicensePlate();
-                if (spotService.getSpotByLicensePlate(licensePlate) != null) {
-                    result.rejectValue("licensePlate", "error.spot",
-                            "Vozilo sa istom registracijom već postoji!");
-
-                    if (result.hasErrors()) {
-                        model.addAttribute("spot", spot);
-                        return "add-spot";
-                    }
-                }
-                Parking.setAvailableSpots(currentAvailableSpots - 1);
-                spot.setUser(user);
-                spot.setParking(Parking);
-                spotService.saveSpot(spot);
-
-                return "redirect:/select-parking";
-
-
-            } else {
-                return "error-page";
-            }
-        } else {
-            return "redirect:/parking-list";
-        }
-    }
-
-*/
     @PostMapping("/add/{id}")
     public String addSpot(@PathVariable("id") Long parkingId, @ModelAttribute("spot") @Valid Spot spot, BindingResult result, Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
         Parking Parking = parkingService.getParkingById(parkingId);
@@ -187,14 +138,14 @@ public class SpotController {
                 spot.setParking(Parking);
                 spotService.saveSpot(spot);
 
-                return "redirect:/dashboard";
+                return "redirect:/spots/user-spots";
 
 
             } else {
                 return "error-page";
             }
         } else {
-            return "redirect:/dashboard";
+            return "redirect:/spots/user-spots";
         }
     }
 
