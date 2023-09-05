@@ -41,6 +41,7 @@
                     <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Povjest karti')} ? 'nav-link active' : 'nav-link'" href="/spot-history">Povjest Karti</a></li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Sve parking karte')} ? 'nav-link active' : 'nav-link'" href="/spots/all-spots">Sve parking karte</a></li>
                     <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Moje karte')} ? 'nav-link active' : 'nav-link'" href="/spots/user-spots">Moje karte</a></li>
+                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Cjenovnik')} ? 'nav-link active' : 'nav-link'" href="/prices">Cjenovnik</a></li>
                 </ul>
             </div>
         </nav>

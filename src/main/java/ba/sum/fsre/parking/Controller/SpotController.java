@@ -74,21 +74,12 @@ public class SpotController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all-spots")
-    public String listAllSpots( Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
-
-
-            List<User> users = userRepository.findAll();
-            List<Spot> allSpots = spotService.getAllSpots();
-
-            for (User user : users) {
-                List<Spot> spots = spotService.findByUser(user);
-                allSpots.addAll(spots);
-            }
+    public String listAllSpots(Model model) {
+            List<Spot> allSpots= spotService.getAllSpots();
 
             model.addAttribute("allSpots", allSpots);
             model.addAttribute("activeLink", "Sve parking karte");
             return "all-spots";
-
     }
 
     @GetMapping("/add/{id}")

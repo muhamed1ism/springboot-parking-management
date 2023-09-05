@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SpotService {
@@ -106,7 +107,6 @@ public class SpotService {
         BigDecimal pricePerMonth = Price.getPricePerMonth();
         spot.setFinalPrice(duration.multiply(pricePerMonth));
     }
-
 
     public List<Spot> findByUser(User user) {
         return spotRepository.findByUser(user);

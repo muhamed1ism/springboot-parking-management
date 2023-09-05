@@ -41,6 +41,11 @@ public class UserPagesController {
         return "select-parking";
     }
 
+    @GetMapping("/prices")
+    public String prices(Model model) {
+        model.addAttribute("activeLink", "Cjenovnik");
+        return "prices";
+    }
 
 
 }
