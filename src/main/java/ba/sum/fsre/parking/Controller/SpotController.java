@@ -1,6 +1,7 @@
 package ba.sum.fsre.parking.Controller;
 
 import ba.sum.fsre.parking.Model.*;
+import ba.sum.fsre.parking.Repository.UserRepository;
 import ba.sum.fsre.parking.Service.ParkingService;
 import ba.sum.fsre.parking.Service.SpotHistoryService;
 import ba.sum.fsre.parking.Service.SpotService;
@@ -30,6 +31,9 @@ public class SpotController {
 
     @Autowired
     private SpotHistoryService spotHistoryService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @ModelAttribute("userDetails")
     public UserDetails getUserDetails(Authentication authentication) {
@@ -66,6 +70,25 @@ public class SpotController {
 
             return "error-page";
         }
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/all-spots")
+    public String listAllSpots( Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
+
+
+            List<User> users = userRepository.findAll();
+            List<Spot> allSpots = spotService.getAllSpots();
+
+            for (User user : users) {
+                List<Spot> spots = spotService.findByUser(user);
+                allSpots.addAll(spots);
+            }
+
+            model.addAttribute("allSpots", allSpots);
+            model.addAttribute("activeLink", "Sve parking karte");
+            return "all-spots";
+
     }
 
     @GetMapping("/add/{id}")
