@@ -4,14 +4,14 @@
 The **Parking Management System** is a web application developed using Spring Boot, which utilizes Thymeleaf for templating and connects to a MySQL database for data storage. This application provides functionality for users to register, log in, buy parking tickets, and view their purchased tickets. An admin user can manage parking lots and view user data.
 
 ## 📚 Table of Contents
-- [Features](#features)
-- [Technologies](#technologies)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Running the Application](#running-the-application)
-- [Usage](#usage)
-- [Application Structure](#application-structure)
-- [License](#license)
+- [Features](#-features)
+- [Technologies](#-technologies)
+- [Getting Started](#-getting-started)
+  - [Prerequisites](#-prerequisites)
+  - [Running the Application](#-running-the-application)
+- [Usage](#-usage)
+- [Application Structure](#-application-structure)
+- [License](#-license)
 
 ## ✨ Features
 - User registration and login
