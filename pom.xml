@@ -11,8 +11,8 @@
     <groupId>ba.sum.fsre</groupId>
     <artifactId>Parking</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Knjiznica</name>
-    <description>Knjiznica</description>
+    <name>Parking</name>
+    <description>Parking management system</description>
     <properties>
         <java.version>17</java.version>
     </properties>
