@@ -28,7 +28,7 @@ public class UserPagesController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, @ModelAttribute("userDetails") UserDetails userDetails) {
-        model.addAttribute("activeLink", "Početna");
+        model.addAttribute("activeLink", "Home");
         return "dashboard";
     }
 
@@ -37,13 +37,13 @@ public class UserPagesController {
         List<Parking> listParking = parkingService.getAllParkings();
 
         model.addAttribute("listParking", listParking);
-        model.addAttribute("activeLink", "Kupi kartu");
+        model.addAttribute("activeLink", "Buy a ticket");
         return "select-parking";
     }
 
     @GetMapping("/prices")
     public String prices(Model model) {
-        model.addAttribute("activeLink", "Cjenovnik");
+        model.addAttribute("activeLink", "Pricing list");
         return "prices";
     }
 

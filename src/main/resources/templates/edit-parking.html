@@ -3,35 +3,35 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Parking - Uredi parking</title>
+    <title>Parking - Edit parking</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="d-flex align-items-center justify-content-between">
-        <h1>Uredi parking</h1>
+        <h1>Edit parking</h1>
     </div>
 
     <form th:action="@{/parking-list/update/{id}(id=${parking.id})}" method="post" th:object="${parking}">
         <div class="form-group row">
-            <label class="col-4 col-form-label">Naziv parkinga: </label>
+            <label class="col-4 col-form-label">Parking name: </label>
             <input type="text" class="form-control" id="parkingName" name="parkingName" th:field="*{parkingName}"/>
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('parkingName')}" th:errors="*{parkingName}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label">Adresa parkinga: </label>
+            <label class="col-4 col-form-label">Parking address: </label>
             <input type="text" class="form-control" id="parkingAddress" name="parkingAddress" th:field="*{parkingAddress}"/>
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('parkingAddress')}" th:errors="*{parkingAddress}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label">Ukupan broj mjesta: </label>
+            <label class="col-4 col-form-label">Number of total spots: </label>
             <input type="number" class="form-control" id="totalSpots" name="totalSpots" th:field="*{totalSpots}"/>
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('totalSpots')}" th:errors="*{totalSpots}"></p>
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary">Uredi parking</button>
+            <button type="submit" class="btn btn-primary">Edit parking</button>
         </div>
     </form>
 </div>

@@ -3,7 +3,7 @@
       layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Knjižnica - Dodaj parking</title>
+    <title>Parking - Add parking</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -15,25 +15,25 @@
 
 
         <div class="form-group row">
-            <label class="col-4 col-form-label">Naziv parkinga: </label>
+            <label class="col-4 col-form-label">Parking name: </label>
             <input type="text" class="form-control" id="parkingName" name="parkingName"/>
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('parkingName')}" th:errors="*{parkingName}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label">Adresa parkinga: </label>
+            <label class="col-4 col-form-label">Parking address: </label>
             <input type="text" class="form-control" id="parkingAddress" name="parkingAddress"/>
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('parkingAddress')}" th:errors="*{parkingAddress}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label">Ukupan broj mjesta: </label>
+            <label class="col-4 col-form-label">Number of total spots: </label>
             <input type="number" class="form-control" id="totalSpots" name="totalSpots"/>
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('totalSpots')}" th:errors="*{totalSpots}"></p>
         </div>
 
         <div>
-            <button type="submit" class="btn btn-primary">Dodaj parking</button>
+            <button type="submit" class="btn btn-primary">Add parking</button>
         </div>
     </form>
 </div>

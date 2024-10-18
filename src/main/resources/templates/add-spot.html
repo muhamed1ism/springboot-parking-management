@@ -3,48 +3,43 @@
       layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Parking - Kupi kartu</title>
-
-
+    <title>Parking - Buy a ticket</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div >
-        <h1> Kupi kartu</h1>
+        <h1> Buy a ticket</h1>
     </div>
-
 
     <form th:action="@{/spots/add/{id}(id=${spot.Parking.id})}" method="post" th:object="${spot}">
         <input type="hidden" name="Parking.id" th:value="${spot.Parking.id}"/>
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="carName">Naziv vozila: </label>
+            <label class="col-4 col-form-label" for="carName">Car name: </label>
             <input type="text" class="form-control" id="carName" name="carName" />
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('carName')}" th:errors="*{carName}"></p>
         </div>
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="licensePlate">Registracijski broj vozila: </label>
+            <label class="col-4 col-form-label" for="licensePlate">License plate: </label>
             <input type="text" class="form-control" id="licensePlate" name="licensePlate" />
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('licensePlate')}" th:errors="*{licensePlate}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="duration">Trajanje: </label>
+            <label class="col-4 col-form-label" for="duration">Duration: </label>
             <input type="number" class="form-control" id="duration" name="duration" />
             <p class="error-text alert alert-danger mt-3" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
         </div>
 
         <div class="form-group row">
-            <label class="col-4 col-form-label" for="durationUnit">Jedinica trajanja: </label>
+            <label class="col-4 col-form-label" for="durationUnit">Duration unit: </label>
             <select class="form-control" id="durationUnit" name="durationUnit">
-                <option value="HOURS">Sati</option>
-                <option value="DAYS">Dani</option>
-                <option value="MONTHS">Mjeseci</option>
+                <option value="HOURS">Hours</option>
+                <option value="DAYS">Days</option>
+                <option value="MONTHS">Months</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary"> Kupi kartu</button>
+        <button type="submit" class="btn btn-primary"> Buy a ticket</button>
     </form>
-
-
 </div>
 </body>
 </html>

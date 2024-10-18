@@ -15,15 +15,15 @@ public class Parking {
     Long id;
 
     @Column(nullable = false, length = 50)
-    @NotBlank(message = "Molimo unesite naziv parkinga.")
+    @NotBlank(message = "Please enter parking name.")
     String parkingName;
 
     @Column(nullable = false, length = 50)
-    @NotBlank(message = "Molimo unesite adresu parkinga.")
+    @NotBlank(message = "Please enter parking address.")
     String parkingAddress;
 
     @Column(nullable = false, length = 5)
-    @NotNull(message = "Molimo unesite broj parking mjesta.")
+    @NotNull(message = "Please enter number of total spots.")
     Long totalSpots;
 
     @Column

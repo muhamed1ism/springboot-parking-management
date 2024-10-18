@@ -13,20 +13,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message="Molimo unesite Vašu email adresu.")
-    @Email(message = "Unesite ispravnu email adresu.")
+    @NotBlank(message="Please enter your email.")
+    @Email(message = "Please enter a valid email address.")
     @Column(unique = true, nullable = false, length = 50)
     private String email;
 
-    @NotBlank(message="Molimo unesite Vašu lozinku.")
+    @NotBlank(message="Please enter your password.")
     @Column(nullable = false)
     private String password;
-    @NotBlank(message="Molimo ponovite Vašu lozinku.")
+    @NotBlank(message="Please repeat your password.")
     private String passwordRepeat;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @SuppressWarnings("unused")
     private boolean passwordsEqual;
 
     public void setPasswordsEqual(boolean passwordsEqual) {
@@ -42,12 +43,12 @@ public class User {
     }
 
 
-    @Size(min=2, max=30, message="Vaše ime mora biti između 2 i 30 znakova duljine.")
+    @Size(min=2, max=30, message="Your first name must be between 2 and 30 characters long.")
     @Column(nullable = false, length = 30)
     private String firstName;
 
 
-    @Size(min=2, max=30, message="Vaše prezime mora biti između 2 i 30 znakova duljine.")
+    @Size(min=2, max=30, message="Your last name must be between 2 and 30 characters long.")
     @Column(nullable = false, length = 30)
     private String lastName;
 
@@ -136,7 +137,7 @@ public class User {
         this.spots = spots;
     }
 
-    @AssertTrue(message="Lozinke se moraju podudarati.")
+    @AssertTrue(message="Passwords must be equal.")
     public boolean isPasswordsEqual () {
         try {
             return this.password.equals(this.passwordRepeat);

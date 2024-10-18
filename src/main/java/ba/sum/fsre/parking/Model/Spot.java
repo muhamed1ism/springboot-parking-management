@@ -18,13 +18,13 @@ public class Spot {
     Long id;
 
     @Column(nullable = false, length = 30)
-    @NotBlank(message = "Molimo unesite naziv parking mjesta.")
-    @Size(max=30, message = "Naziv parking mjesta ne može biti duži od 30 karaktera.")
+    @NotBlank(message = "Please enter car name.")
+    @Size(max=30, message = "Car name can't be longer than 30 characters.")
     String carName;
 
     @Column(nullable = false, length = 15, unique = true)
-    @NotBlank(message = "Molimo unesite registarsku oznaku vozila.")
-    @Size(max=15, message = "Registracijska oznaka ne može biti duža od 15 karaktera.")
+    @NotBlank(message = "Please enter license plate.")
+    @Size(max=15, message = "License plate can't be longer than 15 characters.")
     String licensePlate;
 
     @Column
@@ -36,8 +36,8 @@ public class Spot {
     LocalDateTime endTime;
 
     @Column
-    @NotNull(message = "Molimo unesite trajanje.")
-    @Min(value = 1, message = "Vrijeme trajanja mora biti 1 ili više.")
+    @NotNull(message = "Please enter duration.")
+    @Min(value = 1, message = "Duration must be at least 1.")
     Long duration;
 
     @Column

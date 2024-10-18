@@ -37,7 +37,7 @@ public class SpotHistoryController {
         List<SpotHistory> spotHistoryList = spotHistoryService.getAllSpots();
 
         model.addAttribute("spotHistory", spotHistoryList);
-        model.addAttribute("activeLink", "Povjest karti");
+        model.addAttribute("activeLink", "Ticket history");
 
         return "spot-history";
     }
@@ -68,7 +68,10 @@ public class SpotHistoryController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
 
-        // return message if spot is not found
+        if (!spotHistoryService.getSpotById(id).isPresent()) {
+            model.addAttribute("message", "Spot with id " + id + " does not exist.");
+            return "spot-history";
+        }
 
         spotHistoryService.deleteSpot(id);
         return "redirect:/spot-history";

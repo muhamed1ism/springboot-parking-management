@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Parking - Odaberi parking</title>
+    <title>Parking - Select parking</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Odaberi parking</h1>
+    <h1>Select parking</h1>
     <div class="row">
         <div th:each="parking : ${listParking}" class="col-sm-6 col-md-4 col-lg-3">
             <div class="card mb-3">
                 <div class="card-body text-center">
                     <h5 class="card-title" th:text="${parking.parkingName}"></h5>
-                    <p class="card-text">Adresa: <span th:text="${parking.parkingAddress}"></span></p>
-                    <p class="card-text">Ukupan broj mjesta: <span th:text="${parking.totalSpots}"></span></p>
-                    <p class="card-text">Broj slobodnih mjesta: <span th:text="${parking.availableSpots}"></span></p>
-                    <a th:href="@{/spots/add/{id}(id=${parking.id})}" class="btn btn-primary">Odaberi</a>
+                    <p class="card-text">Address: <span th:text="${parking.parkingAddress}"></span></p>
+                    <p class="card-text">Number of total spots: <span th:text="${parking.totalSpots}"></span></p>
+                    <p class="card-text">Number of free spots: <span th:text="${parking.availableSpots}"></span></p>
+                    <a th:href="@{/spots/add/{id}(id=${parking.id})}" class="btn btn-primary">Select</a>
                 </div>
             </div>
         </div>

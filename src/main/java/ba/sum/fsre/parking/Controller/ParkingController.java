@@ -36,7 +36,7 @@ public class ParkingController {
         List<Parking> listParking = parkingService.getAllParkings();
 
         model.addAttribute("listParking", listParking);
-        model.addAttribute("activeLink", "Parking Lista");
+        model.addAttribute("activeLink", "Parking list");
         return "parking-list";
     }
 
@@ -45,7 +45,7 @@ public class ParkingController {
     @GetMapping("add")
     public String showAddParkingForm(Model model) {
         model.addAttribute("parking", new Parking());
-        model.addAttribute("activeLink", "Parking Lista");
+        model.addAttribute("activeLink", "Parking list");
         return "add-parking";
     }
 
@@ -67,7 +67,7 @@ public class ParkingController {
     public String showUpdateForm(@PathVariable("id") long parkingId, Model model) {
         Parking parking = parkingService.getParkingById(parkingId);
         model.addAttribute("parking", parking);
-        model.addAttribute("activeLink", "Parking Lista");
+        model.addAttribute("activeLink", "Parking list");
         return "edit-parking";
     }
 

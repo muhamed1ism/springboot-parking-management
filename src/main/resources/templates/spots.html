@@ -1,12 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Parking - Parking Mjesta</title>
+    <title>Parking - Parking spots</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1 sec:authorize="hasRole('ROLE_ADMIN')">Parking Mjesta</h1>
-    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/spots/add/{id}(id=${parking.id})}" class="btn btn-outline-primary mb-3"><i class="fa-solid fa-plus"></i> Kupi kartu</a>
+    <h1 sec:authorize="hasRole('ROLE_ADMIN')">Parking spots</h1>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/spots/add/{id}(id=${parking.id})}" class="btn btn-outline-primary mb-3"><i class="fa-solid fa-plus"></i> Buy a ticket</a>
     <div th:if="${param.errorMessage != null}">
         <p class="alert alert-danger" th:text="${param.errorMessage}"></p>
     </div>
@@ -14,14 +14,14 @@
         <thead class="thead-dark">
         <tr>
             <th>ID</th>
-            <th>Naziv vozila</th>
-            <th>Registracijski broj vozila</th>
-            <th>Ime vlasnika</th>
-            <th>Kontakt</th>
-            <th>Početno vrijeme</th>
-            <th>Završno vrijeme</th>
-            <th>Cijena</th>
-            <th class="text-center">Akcija</th>
+            <th>Car name</th>
+            <th>License plate</th>
+            <th>Owner's name</th>
+            <th>Contact</th>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Price</th>
+            <th class="text-center">Actions</th>
         </tr>
         </thead>
         <tbody>

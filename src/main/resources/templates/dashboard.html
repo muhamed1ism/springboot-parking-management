@@ -2,21 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Parking - Dobro došli</title>
+    <title>Parking - Welcome</title>
 </head>
 <body>
 <div layout:fragment="content">
     <header class="text-center">
         <div>
-            <h1 class="display-4 mb-5">Dobro došli na Parking aplikaciju!</h1>
+            <h1 class="display-4 mb-5">Welcome to Parking application!</h1>
         </div>
     </header>
 
     <section class="text-center">
         <div class="container py-4">
-            <h2 class="text-uppercase fw-bold mt-4">Započni kupovinu karte</h2>
+            <h2 class="text-uppercase fw-bold mt-4">Start ticket purchase</h2>
             <form class="mt-5 mb-5" th:action="@{/select-parking}" method="get">
-                <button type="submit" class="btn btn-primary btn-lg me-2">Kupi kartu</button>
+                <button type="submit" class="btn btn-primary btn-lg me-2">Buy a ticket</button>
             </form>
         </div>
     </section>

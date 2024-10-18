@@ -2,23 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Parking - Cjenovnik</title>
+    <title>Parking - Pricing list</title>
 </head>
 <body>
 <div layout:fragment="content">
     <header class="text-center">
         <div>
-            <h1 class="mb-5">Cijena parking karte</h1>
+            <h1 class="mb-5">Parking ticket price</h1>
         </div>
     </header>
 
     <section>
         <div class="container py-4">
             <ul>
-                <li>1 sat: 1 KM</li>
-                <li>Svaki dodatni sat: +0.5 KM</li>
-                <li>1 dan (24 sata): 10 KM</li>
-                <li>1 mjesec: 50 KM</li>
+                <li>1 hour: $ 1</li>
+                <li>Each additional hour: + $ 0.5</li>
+                <li>1 day (24 hours): $ 10</li>
+                <li>1 month: $ 50</li>
             </ul>
         </div>
     </section>

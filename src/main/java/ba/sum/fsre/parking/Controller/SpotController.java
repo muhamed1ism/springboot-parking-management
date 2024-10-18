@@ -60,7 +60,7 @@ public class SpotController {
 
             model.addAttribute("user", user);
             model.addAttribute("spots", spots);
-            model.addAttribute("activeLink", "Moje karte");
+            model.addAttribute("activeLink", "My tickets");
             return "user-spots";
         } else {
 
@@ -74,7 +74,7 @@ public class SpotController {
             List<Spot> allSpots= spotService.getAllSpots();
 
             model.addAttribute("allSpots", allSpots);
-            model.addAttribute("activeLink", "Sve parking karte");
+            model.addAttribute("activeLink", "All parking tickets");
             return "all-spots";
     }
 
@@ -96,7 +96,7 @@ public class SpotController {
 
                 return "add-spot";
             } else {
-                return "redirect:/spots/{id}?errorMessage=Nema slobodnih mjesta!";
+                return "redirect:/spots/{id}?errorMessage=No parking spaces available!";
             }
 
         } else {
@@ -126,7 +126,7 @@ public class SpotController {
                 String licensePlate = spot.getLicensePlate();
                 if (spotService.getSpotByLicensePlate(licensePlate) != null) {
                     result.rejectValue("licensePlate", "error.spot",
-                            "Vozilo sa istom registracijom već postoji!");
+                            "A vehicle with the same registration already exists!");
 
                     if (result.hasErrors()) {
                         model.addAttribute("spot", spot);
